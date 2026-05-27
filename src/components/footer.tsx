@@ -1,37 +1,43 @@
+"use client";
+
 import Link from "next/link";
 import { Github, Linkedin, Instagram, Twitter, Mail } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
 import { Logo } from "@/components/logo";
-
-const linkSections = [
-  {
-    title: "Studio",
-    links: [
-      { label: "Services", href: "/services" },
-      { label: "Portfolio", href: "/portfolio" },
-      { label: "Pricing", href: "/pricing" },
-      { label: "About", href: "/about" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { label: "Insights", href: "/blog" },
-      { label: "Contact", href: "/contact" },
-      { label: "Book a call", href: siteConfig.links.calendly },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Privacy", href: "/legal/privacy" },
-      { label: "Terms", href: "/legal/terms" },
-    ],
-  },
-];
+import { useLanguage } from "@/components/providers/language-provider";
+import { translations as T, t } from "@/lib/i18n/translations";
 
 export function Footer() {
+  const { locale } = useLanguage();
+
+  const linkSections = [
+    {
+      title: t(T.footer.sections.studio, locale),
+      links: [
+        { label: t(T.footer.links.services, locale), href: "/services" },
+        { label: t(T.footer.links.portfolio, locale), href: "/portfolio" },
+        { label: t(T.footer.links.pricing, locale), href: "/pricing" },
+        { label: t(T.footer.links.about, locale), href: "/about" },
+      ],
+    },
+    {
+      title: t(T.footer.sections.resources, locale),
+      links: [
+        { label: t(T.footer.links.insights, locale), href: "/blog" },
+        { label: t(T.footer.links.contact, locale), href: "/contact" },
+        { label: t(T.footer.links.bookCall, locale), href: siteConfig.links.calendly },
+      ],
+    },
+    {
+      title: t(T.footer.sections.legal, locale),
+      links: [
+        { label: t(T.footer.links.privacy, locale), href: "/legal/privacy" },
+        { label: t(T.footer.links.terms, locale), href: "/legal/terms" },
+      ],
+    },
+  ];
+
   return (
     <footer className="relative border-t border-border/60 bg-background">
       <div className="container-tight py-16">
@@ -39,18 +45,14 @@ export function Footer() {
           <div>
             <Logo />
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-              {siteConfig.tagline}
+              {t(T.footer.tagline, locale)}
             </p>
             <div className="mt-6 flex items-center gap-2">
               <SocialLink href={siteConfig.links.github} icon={Github} label="GitHub" />
               <SocialLink href={siteConfig.links.linkedin} icon={Linkedin} label="LinkedIn" />
               <SocialLink href={siteConfig.links.instagram} icon={Instagram} label="Instagram" />
               <SocialLink href={siteConfig.links.twitter} icon={Twitter} label="X / Twitter" />
-              <SocialLink
-                href={`mailto:${siteConfig.contactEmail}`}
-                icon={Mail}
-                label="Email"
-              />
+              <SocialLink href={`mailto:${siteConfig.contactEmail}`} icon={Mail} label="Email" />
             </div>
           </div>
 
@@ -75,11 +77,10 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border/60 pt-8 text-xs text-muted-foreground md:flex-row md:items-center">
           <p>
-            © {new Date().getFullYear()} Firlou Studio — {siteConfig.city}. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Firlou Studio &mdash; {siteConfig.city}. {t(T.footer.rights, locale)}
           </p>
           <p>
-            Crafted with care by{" "}
+            {t(T.footer.craftedBy, locale)}{" "}
             <span className="text-foreground">{siteConfig.founders.join(" & ")}</span>.
           </p>
         </div>

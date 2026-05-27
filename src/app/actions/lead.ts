@@ -11,17 +11,6 @@ export type LeadActionState = {
   errors?: Record<string, string[]>;
 };
 
-const projectTypeMap: Record<string, string> = {
-  Website: "WEBSITE",
-  "Landing Page": "LANDING_PAGE",
-  "SaaS MVP": "SAAS",
-  Dashboard: "DASHBOARD",
-  Automation: "AUTOMATION",
-  "AI Integration": "AI_INTEGRATION",
-  "API / Backend": "API_BACKEND",
-  Other: "OTHER",
-};
-
 export async function submitLead(input: LeadInput): Promise<LeadActionState> {
   const parsed = leadSchema.safeParse(input);
 
@@ -40,8 +29,7 @@ export async function submitLead(input: LeadInput): Promise<LeadActionState> {
 
   const data = parsed.data;
 
-  // Persist to the database when available. Lazy-imported so the marketing
-  // site still builds/runs without a configured DATABASE_URL.
+  // Persist to the database when available.
   try {
     if (process.env.DATABASE_URL) {
       const { prisma } = await import("@/lib/prisma");
@@ -51,7 +39,7 @@ export async function submitLead(input: LeadInput): Promise<LeadActionState> {
           email: data.email,
           phone: data.phone || null,
           company: data.company || null,
-          projectType: (projectTypeMap[data.projectType] ?? "OTHER") as any,
+          projectType: "OTHER" as any,
           budget: data.budget,
           message: data.message,
           source: "website",
@@ -70,18 +58,27 @@ export async function submitLead(input: LeadInput): Promise<LeadActionState> {
         from: process.env.FROM_EMAIL ?? "Firlou <noreply@firlou.tn>",
         to: process.env.LEAD_NOTIFICATION_EMAIL,
         replyTo: data.email,
-        subject: `New lead: ${data.fullName} — ${data.projectType}`,
+        subject: `🔔 New lead: ${data.fullName} — ${data.projectType}`,
         text: [
-          `Name: ${data.fullName}`,
-          `Email: ${data.email}`,
-          `Phone: ${data.phone || "—"}`,
-          `Company: ${data.company || "—"}`,
-          `Project type: ${data.projectType}`,
-          `Budget: ${data.budget}`,
-          "",
+          `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+          `NEW LEAD FROM FIRLOU.TN`,
+          `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+          ``,
+          `👤 Name:         ${data.fullName}`,
+          `📧 Email:        ${data.email}`,
+          `📞 Phone:        ${data.phone || "—"}`,
+          `💬 WhatsApp:     ${data.whatsapp || "—"}`,
+          `🏢 Company:      ${data.company || "—"}`,
+          ``,
+          `📦 Project type: ${data.projectType}`,
+          `💰 Budget:       ${data.budget}`,
+          `⏰ Deadline:     ${data.deadline || "—"}`,
+          ``,
+          `📝 Message:`,
           data.message,
-          "",
-          `— Sent from ${siteConfig.url}`,
+          ``,
+          `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+          `Sent from ${siteConfig.url}`,
         ].join("\n"),
       });
     }

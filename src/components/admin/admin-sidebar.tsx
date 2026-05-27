@@ -7,6 +7,7 @@ import { signOut } from "next-auth/react";
 import {
   LayoutDashboard,
   Users,
+  Building2,
   FolderKanban,
   Image as ImageIcon,
   FileText,
@@ -23,6 +24,7 @@ import { Button } from "@/components/ui/button";
 const nav = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/leads", label: "Leads", icon: Users },
+  { href: "/admin/clients", label: "Clients", icon: Building2 },
   { href: "/admin/projects", label: "Projects", icon: FolderKanban },
   { href: "/admin/portfolio", label: "Portfolio", icon: ImageIcon },
   { href: "/admin/blog", label: "Blog & SEO", icon: FileText },

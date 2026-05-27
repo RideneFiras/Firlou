@@ -1,12 +1,12 @@
 import {
-  Code2,
-  Layers,
+  Globe,
   LayoutDashboard,
   Workflow,
   Sparkles,
   Rocket,
   Building2,
   Server,
+  MonitorSmartphone,
   type LucideIcon,
 } from "lucide-react";
 
@@ -16,71 +16,74 @@ export type Service = {
   description: string;
   icon: LucideIcon;
   features: string[];
+  badge?: string;
 };
 
 export const services: Service[] = [
   {
-    slug: "web-development",
-    title: "Web Development",
+    slug: "digital-presence",
+    title: "Digital Presence",
     description:
-      "Custom websites engineered for speed, conversion and long-term scalability — built with the modern Next.js stack.",
-    icon: Code2,
-    features: ["Next.js + TypeScript", "Headless CMS-ready", "CRO-driven UX"],
+      "Modern websites and optimized digital experiences that help your business look professional, attract clients and get discovered online.",
+    icon: Globe,
+    features: ["Professional website", "SEO optimization", "Google-ready setup"],
+    badge: "Most requested",
+  },
+  {
+    slug: "web-development",
+    title: "Custom Websites",
+    description:
+      "Tailor-made websites built to reflect your brand, convert visitors into clients and perform perfectly on every device.",
+    icon: MonitorSmartphone,
+    features: ["Mobile-first design", "WhatsApp integration", "Fast loading"],
   },
   {
     slug: "saas-mvp",
-    title: "SaaS MVP",
+    title: "Startup & SaaS Development",
     description:
-      "Ship your product to market in weeks, not months. We turn ideas into investor-ready SaaS platforms.",
+      "We turn your business idea into a fully working product. From MVP to investor-ready platform, we handle the entire build.",
     icon: Rocket,
-    features: ["From zero to launch", "Stripe & subscriptions", "Multi-tenant architecture"],
+    features: ["Rapid launch", "Subscription billing", "Scalable architecture"],
   },
   {
     slug: "admin-dashboards",
-    title: "Admin Dashboards",
+    title: "Business Management Systems",
     description:
-      "Powerful, role-aware dashboards with real-time analytics, custom workflows and pristine UX.",
+      "Custom dashboards and management tools built around how your business actually works — track everything from one place.",
     icon: LayoutDashboard,
-    features: ["Realtime data", "Granular RBAC", "Beautiful charts"],
+    features: ["Real-time data", "Role-based access", "Reports & exports"],
   },
   {
     slug: "automation-systems",
-    title: "Automation Systems",
+    title: "Workflow & Business Automation",
     description:
-      "Eliminate repetitive work. We design automation pipelines that connect your apps and free your team.",
+      "Stop wasting time on repetitive tasks. We automate your business processes so your team can focus on what matters.",
     icon: Workflow,
-    features: ["n8n / Zapier / custom", "CRM + emails", "Internal tooling"],
+    features: ["CRM automation", "Email & notifications", "Custom workflows"],
   },
   {
     slug: "ai-integration",
-    title: "AI Integration",
+    title: "AI-Powered Features",
     description:
-      "Plug generative AI into your product. Chatbots, copilots, content engines, vector search and beyond.",
+      "Add intelligent features to your business: smart chatbots, automated assistants, content generation and data analysis.",
     icon: Sparkles,
-    features: ["LLM-powered features", "RAG pipelines", "Custom agents"],
-  },
-  {
-    slug: "landing-pages",
-    title: "Landing Pages",
-    description:
-      "High-converting landing pages, designed to look premium and engineered to load in under a second.",
-    icon: Layers,
-    features: ["A/B-ready", "SEO optimized", "Pixel-perfect motion"],
+    features: ["AI chatbots", "Smart automation", "Data insights"],
+    badge: "New",
   },
   {
     slug: "internal-platforms",
     title: "Internal Business Platforms",
     description:
-      "Operational platforms that fit your business — inventory, CRM, ERP-lite, project management and more.",
+      "Custom platforms built for your team — inventory management, CRM, booking systems, HR tools and more.",
     icon: Building2,
-    features: ["Tailored to your ops", "Secure access control", "Reports & exports"],
+    features: ["Tailored to your ops", "Secure access control", "Fully customizable"],
   },
   {
     slug: "api-backend",
-    title: "API & Backend Development",
+    title: "Custom Business Systems",
     description:
-      "Robust APIs, scalable backends and clean data models — the engine room of your digital product.",
+      "Robust digital infrastructure that powers your business behind the scenes — APIs, databases, integrations and automation engines.",
     icon: Server,
-    features: ["REST / tRPC / GraphQL", "Postgres + Prisma", "Production-grade auth"],
+    features: ["API integrations", "Secure data systems", "Third-party connections"],
   },
 ];

@@ -28,28 +28,40 @@ export function ServicesGrid({ limit }: { limit?: number }) {
                 "hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_20px_60px_-20px_hsl(var(--primary)/0.35)]",
               )}
             >
+              {/* Hover glow */}
               <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br from-brand-500/20 to-fuchsia-500/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
 
-              <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border/60 bg-secondary/50 text-primary transition-colors group-hover:border-primary/40">
+              {/* Badge */}
+              {service.badge && (
+                <span className="absolute right-4 top-4 rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                  {service.badge}
+                </span>
+              )}
+
+              {/* Icon */}
+              <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-border/60 bg-secondary/50 text-primary transition-colors group-hover:border-primary/40 group-hover:bg-primary/10">
                 <Icon className="h-5 w-5" />
               </div>
 
-              <h3 className="flex items-center gap-1.5 font-display text-lg font-semibold">
+              {/* Title */}
+              <h3 className="flex items-center gap-1.5 font-display text-base font-semibold leading-snug">
                 {service.title}
-                <ArrowUpRight className="h-4 w-4 -translate-x-1 text-muted-foreground opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                <ArrowUpRight className="h-4 w-4 -translate-x-1 shrink-0 text-muted-foreground opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
               </h3>
 
-              <p className="mt-2 text-sm text-muted-foreground">
+              {/* Description */}
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {service.description}
               </p>
 
+              {/* Features */}
               <ul className="mt-4 space-y-1.5">
                 {service.features.map((f) => (
                   <li
                     key={f}
                     className="flex items-center gap-2 text-xs text-muted-foreground"
                   >
-                    <span className="h-1 w-1 rounded-full bg-primary" />
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary/70" />
                     {f}
                   </li>
                 ))}

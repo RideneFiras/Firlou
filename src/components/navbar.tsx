@@ -10,9 +10,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { useLanguage } from "@/components/providers/language-provider";
+import { translations as T, t } from "@/lib/i18n/translations";
 
 export function Navbar() {
   const pathname = usePathname();
+  const { locale } = useLanguage();
   const [open, setOpen] = React.useState(false);
   const [scrolled, setScrolled] = React.useState(false);
 
@@ -42,6 +46,8 @@ export function Navbar() {
         <nav className="hidden items-center gap-1 md:flex">
           {siteConfig.nav.map((item) => {
             const active = pathname?.startsWith(item.href);
+            const key = item.href.replace("/", "") as keyof typeof T.nav;
+            const label = T.nav[key] ? t(T.nav[key], locale) : item.label;
             return (
               <Link
                 key={item.href}
@@ -53,13 +59,14 @@ export function Navbar() {
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                {item.label}
+                {label}
               </Link>
             );
           })}
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <ThemeToggle />
           <Button
             asChild
@@ -67,13 +74,9 @@ export function Navbar() {
             size="sm"
             className="hidden md:inline-flex"
           >
-            <a
-              href={siteConfig.links.whatsapp}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href={siteConfig.links.whatsapp} target="_blank" rel="noreferrer">
               <MessageCircle className="h-4 w-4" />
-              Talk to us
+              {t(T.nav.talkToUs, locale)}
             </a>
           </Button>
 
@@ -92,6 +95,8 @@ export function Navbar() {
           <div className="container-tight flex flex-col gap-1 py-3">
             {siteConfig.nav.map((item) => {
               const active = pathname?.startsWith(item.href);
+              const key = item.href.replace("/", "") as keyof typeof T.nav;
+              const label = T.nav[key] ? t(T.nav[key], locale) : item.label;
               return (
                 <Link
                   key={item.href}
@@ -103,18 +108,17 @@ export function Navbar() {
                       : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground",
                   )}
                 >
-                  {item.label}
+                  {label}
                 </Link>
               );
             })}
+            <div className="flex items-center gap-2 py-1">
+              <LanguageSwitcher />
+            </div>
             <Button asChild variant="gradient" size="lg" className="mt-2">
-              <a
-                href={siteConfig.links.whatsapp}
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={siteConfig.links.whatsapp} target="_blank" rel="noreferrer">
                 <MessageCircle className="h-4 w-4" />
-                Talk to us on WhatsApp
+                {t(T.nav.talkToUs, locale)} WhatsApp
               </a>
             </Button>
           </div>
