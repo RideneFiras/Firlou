@@ -68,9 +68,9 @@ export const translations = {
       fr: "Consultation gratuite sur WhatsApp",
       tn: "استشارة مجانية على واتساب",
     },
-    trust1: { en: "40+ businesses served", fr: "40+ entreprises accompagnées", tn: "+40 شركة موثوقة" },
-    trust2: { en: "5★ client satisfaction", fr: "5★ satisfaction client", tn: "5★ رضا العملاء" },
-    trust3: { en: "Delivery in 7–14 days", fr: "Livraison en 7–14 jours", tn: "تسليم في 7–14 يوم" },
+    trust1: { en: "{clients}+ businesses served", fr: "{clients}+ entreprises accompagnées", tn: "+{clients} شركة موثوقة" },
+    trust2: { en: "{rating}★ client satisfaction", fr: "{rating}★ satisfaction client", tn: "{rating}★ رضا العملاء" },
+    trust3: { en: "Delivery in {delivery} days", fr: "Livraison en {delivery} jours", tn: "تسليم في {delivery} يوم" },
     clientsTitle: {
       en: "Built for all kinds of businesses",
       fr: "Conçu pour tous types d'entreprises",
@@ -84,11 +84,14 @@ export const translations = {
   },
 
   // ── STATS ───────────────────────────────────────────────
+  // NOTE: the big `value` shown for each stat is sourced live from
+  // src/config/metrics.ts (see the Stats component). Only the labels
+  // and sub-labels live here.
   stats: {
-    s1: { value: "40+", en: "Businesses served", fr: "Entreprises accompagnées", tn: "شركة خدمناها", sub: { en: "in Tunisia & internationally", fr: "en Tunisie et à l'international", tn: "في تونس وخارجها" } },
-    s2: { value: "7–14", en: "Days to deliver", fr: "Jours de livraison", tn: "يوم للتسليم", sub: { en: "average Starter project", fr: "projet Starter en moyenne", tn: "للمشاريع العادية" } },
-    s3: { value: "98%", en: "Client retention", fr: "Fidélité client", tn: "رضا العملاء", sub: { en: "clients who come back", fr: "clients qui reviennent", tn: "عملاء يرجعولنا" } },
-    s4: { value: "5★", en: "Satisfaction rate", fr: "Taux de satisfaction", tn: "تقييم العملاء", sub: { en: "across all projects", fr: "sur tous les projets", tn: "على كل المشاريع" } },
+    s1: { en: "Businesses served", fr: "Entreprises accompagnées", tn: "شركة خدمناها", sub: { en: "in Tunisia & internationally", fr: "en Tunisie et à l'international", tn: "في تونس وخارجها" } },
+    s2: { en: "Days to deliver", fr: "Jours de livraison", tn: "يوم للتسليم", sub: { en: "average Starter project", fr: "projet Starter en moyenne", tn: "للمشاريع العادية" } },
+    s3: { en: "Client retention", fr: "Fidélité client", tn: "رضا العملاء", sub: { en: "clients who come back", fr: "clients qui reviennent", tn: "عملاء يرجعولنا" } },
+    s4: { en: "Satisfaction rate", fr: "Taux de satisfaction", tn: "تقييم العملاء", sub: { en: "across all projects", fr: "sur tous les projets", tn: "على كل المشاريع" } },
   },
 
   // ── SECTION LABELS ──────────────────────────────────────
@@ -358,9 +361,9 @@ export const translations = {
       {
         title: { en: "Trusted & reliable", fr: "Fiable et de confiance", tn: "موثوق وأمين" },
         description: {
-          en: "40+ successful projects and a 98% client retention rate. Our clients keep coming back — and referring us.",
-          fr: "40+ projets réussis et un taux de rétention de 98%. Nos clients reviennent — et nous recommandent.",
-          tn: "+40 مشروع ناجح ونسبة رضا 98%. عملاؤنا يرجعوا دائماً — ويوصوا بينا.",
+          en: "{clients}+ successful projects and a {retention}% client retention rate. Our clients keep coming back — and referring us.",
+          fr: "{clients}+ projets réussis et un taux de rétention de {retention}%. Nos clients reviennent — et nous recommandent.",
+          tn: "+{clients} مشروع ناجح ونسبة رضا {retention}%. عملاؤنا يرجعوا دائماً — ويوصوا بينا.",
         },
       },
     ],
@@ -494,7 +497,7 @@ export const translations = {
 
   // ── CTA ─────────────────────────────────────────────────
   cta: {
-    social1: { en: "40+ businesses served", fr: "40+ entreprises accompagnées", tn: "+40 شركة خدمناها" },
+    social1: { en: "{clients}+ businesses served", fr: "{clients}+ entreprises accompagnées", tn: "+{clients} شركة خدمناها" },
     social2: { en: "Response within 2 hours", fr: "Réponse en 2 heures", tn: "رد في 2 ساعة" },
     social3: { en: "Free consultation call", fr: "Appel de consultation gratuit", tn: "استشارة مجانية" },
     title: {
@@ -587,4 +590,19 @@ export type TranslationKey = keyof typeof translations;
 // ─────────────────────────────────────────────────────────
 export function t(node: { en: string; fr: string; tn: string }, locale: Locale): string {
   return node[locale] ?? node.en;
+}
+
+// Like `t`, but replaces `{token}` placeholders with dynamic values.
+// Used to inject live numbers (from src/config/metrics.ts) into
+// translated copy without duplicating those numbers per language.
+export function ti(
+  node: { en: string; fr: string; tn: string },
+  locale: Locale,
+  vars: Record<string, string | number>,
+): string {
+  let out = t(node, locale);
+  for (const [key, value] of Object.entries(vars)) {
+    out = out.split(`{${key}}`).join(String(value));
+  }
+  return out;
 }

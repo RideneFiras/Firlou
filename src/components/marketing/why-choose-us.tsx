@@ -13,7 +13,8 @@ import {
 } from "lucide-react";
 
 import { useLanguage } from "@/components/providers/language-provider";
-import { translations as T, t } from "@/lib/i18n/translations";
+import { translations as T, t, ti } from "@/lib/i18n/translations";
+import { metrics } from "@/config/metrics";
 
 const icons = [Zap, Cpu, Smartphone, Layers, Palette, MessageSquare, LifeBuoy, ShieldCheck];
 
@@ -23,7 +24,7 @@ export function WhyChooseUs() {
   const reasons = T.why.reasons.map((r, i) => ({
     icon: icons[i],
     title: t(r.title, locale),
-    description: t(r.description, locale),
+    description: ti(r.description, locale, metrics.tokens),
   }));
 
   return (

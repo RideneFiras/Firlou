@@ -5,15 +5,16 @@ import { motion } from "framer-motion";
 import { ArrowRight, MessageCircle, Calendar, Star } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
+import { metrics } from "@/config/metrics";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/providers/language-provider";
-import { translations as T, t } from "@/lib/i18n/translations";
+import { translations as T, t, ti } from "@/lib/i18n/translations";
 
 export function CtaSection() {
   const { locale } = useLanguage();
 
   const socialProof = [
-    { icon: Star, text: t(T.cta.social1, locale) },
+    { icon: Star, text: ti(T.cta.social1, locale, metrics.tokens) },
     { icon: MessageCircle, text: t(T.cta.social2, locale) },
     { icon: Calendar, text: t(T.cta.social3, locale) },
   ];

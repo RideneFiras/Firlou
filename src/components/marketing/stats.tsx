@@ -3,15 +3,18 @@
 import { motion } from "framer-motion";
 import { useLanguage } from "@/components/providers/language-provider";
 import { translations as T, t } from "@/lib/i18n/translations";
+import { metrics } from "@/config/metrics";
 
 export function Stats() {
   const { locale } = useLanguage();
 
+  // Big numbers are sourced live from src/config/metrics.ts so they
+  // stay in sync with the underlying data and editorial claims.
   const stats = [
-    { value: T.stats.s1.value, label: t(T.stats.s1, locale), sub: t(T.stats.s1.sub, locale) },
-    { value: T.stats.s2.value, label: t(T.stats.s2, locale), sub: t(T.stats.s2.sub, locale) },
-    { value: T.stats.s3.value, label: t(T.stats.s3, locale), sub: t(T.stats.s3.sub, locale) },
-    { value: T.stats.s4.value, label: t(T.stats.s4, locale), sub: t(T.stats.s4.sub, locale) },
+    { value: metrics.clientsServedDisplay, label: t(T.stats.s1, locale), sub: t(T.stats.s1.sub, locale) },
+    { value: metrics.deliveryDays, label: t(T.stats.s2, locale), sub: t(T.stats.s2.sub, locale) },
+    { value: metrics.retentionDisplay, label: t(T.stats.s3, locale), sub: t(T.stats.s3.sub, locale) },
+    { value: metrics.satisfactionDisplay, label: t(T.stats.s4, locale), sub: t(T.stats.s4.sub, locale) },
   ];
 
   return (

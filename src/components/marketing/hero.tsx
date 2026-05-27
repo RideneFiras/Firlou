@@ -12,20 +12,21 @@ import {
 } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
+import { metrics } from "@/config/metrics";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/components/providers/language-provider";
-import { translations as T, t } from "@/lib/i18n/translations";
+import { translations as T, t, ti } from "@/lib/i18n/translations";
 
 export function Hero() {
   const { locale } = useLanguage();
 
   const trustBadges = [
-    { icon: CheckCircle2, text: t(T.hero.trust1, locale) },
-    { icon: Star, text: t(T.hero.trust2, locale) },
-    { icon: Zap, text: t(T.hero.trust3, locale) },
+    { icon: CheckCircle2, text: ti(T.hero.trust1, locale, metrics.tokens) },
+    { icon: Star, text: ti(T.hero.trust2, locale, metrics.tokens) },
+    { icon: Zap, text: ti(T.hero.trust3, locale, metrics.tokens) },
   ];
 
-  const clientTypes: string[] = T.hero.clients[locale];
+  const clientTypes: readonly string[] = T.hero.clients[locale];
 
   return (
     <section className="relative overflow-hidden">

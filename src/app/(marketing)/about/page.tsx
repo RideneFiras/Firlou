@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 
 import { siteConfig } from "@/config/site";
+import { metrics } from "@/config/metrics";
 import { PageHeader } from "@/components/marketing/page-header";
 import { Stats } from "@/components/marketing/stats";
 import { CtaSection } from "@/components/marketing/cta-section";
@@ -120,7 +121,7 @@ export default function AboutPage() {
                   "We're based in Tunisia — we know your market",
                   "Full-stack: design, frontend, backend, everything",
                   "You work directly with the founders, always",
-                  "7–14 day delivery for standard projects",
+                  `${metrics.deliveryDays} day delivery for standard projects`,
                   "Available in Arabic, French and English",
                   "Long-term support and partnerships",
                 ].map((item) => (
