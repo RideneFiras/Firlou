@@ -185,6 +185,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${sora.variable} ${mono.variable} font-sans`}>
+        {/* Runs synchronously before any content paints — hides the page content
+            wrapper on first visit so the intro screen appears with no flash. */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{if(!sessionStorage.getItem('firlou-intro')){document.documentElement.setAttribute('data-intro-pending','');}}catch(e){}})()` }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

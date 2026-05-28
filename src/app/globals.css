@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Intro screen: block content flash on first visit ──────────────────
+   The inline script in layout.tsx sets data-intro-pending on <html>
+   before any content renders if the intro hasn't been shown yet.
+   This hides the marketing wrapper so the landing page never flashes
+   before the intro. When IntroScreen exits it removes the attribute,
+   triggering the opacity transition. ───────────────────────────────── */
+html[data-intro-pending] .intro-content-wrapper {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+.intro-content-wrapper {
+  transition: opacity 0.5s ease;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
